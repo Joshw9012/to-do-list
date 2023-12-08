@@ -7,33 +7,35 @@ import {
   HiOutlineXMark,
   HiOutlineCheckCircle,
   HiDocumentCheck,
-  HiClipboardDocumentCheck,
   HiArchiveBoxXMark,
   HiMiniQueueList,
   HiOutlineDocumentDuplicate,
-  HiCog6Tooth,
 } from "react-icons/hi2";
 function App() {
-  const [currentPage, setCurrentPage] = useState();
-  const page = useEffect(
-    function () {
-      if (currentPage) {
-        const completedNumItems = todoList.reduce(
-          (acc, todo) => acc + (todo.status === "Completed" ? 1 : 0),
-          0
-        );
-      }
-    },
-    [currentPage]
-  );
+  // const page = useEffect(
+  //   function () {
+  //     if (currentPage) {
+  //       const todoList = useSelector((state) => state.todo);
+  //     }
+  //     if (!currentPage) {
+  //       const todoList = useSelector((state) => state.todo.status==="completed");
+  //   },
+  //   [currentPage]
+  // );
 
   const todoList = useSelector((state) => state.todo);
+  const todoWatchList = todoList.filter((todo) => todo.status === "Pending");
+  const completedList = todoList.filter((todo) => todo.status === "Completed");
+  //cl
+  console.log(todoList);
+  console.log(completedList);
+
   const completedNumItems = todoList.reduce(
     (acc, todo) => acc + (todo.status === "Completed" ? 1 : 0),
     0
   );
 
-  const totalNumItems = todoList.length;
+  const watchListNumItems = todoWatchList.length;
   console.log(todoList[0].status);
   console.log(completedNumItems);
   console.log(todoList.length);
@@ -41,11 +43,11 @@ function App() {
   return (
     <AppLayout>
       <Header
-        totalNumItems={totalNumItems}
+        watchListNumItems={watchListNumItems}
         completedNumItems={completedNumItems}
       ></Header>
       <SideBar></SideBar>
-      <Main todos={todoList}></Main>
+      <Main todos={todoWatchList}></Main>
       <Footer></Footer>
     </AppLayout>
   );
@@ -61,11 +63,11 @@ function AppLayout({ children }) {
   );
 }
 
-function Header({ totalNumItems, completedNumItems }) {
+function Header({ watchListNumItems, completedNumItems }) {
   return (
-    <header className="h-[12rem] w-auto text-[5rem] text-center bg-[#1864ab] content-center">
+    <header className="h-[12rem] w-auto text-[3rem] text-center bg-[#1864ab] content-center text-white">
       <p className="mt-[5%] ">
-        You have completed {completedNumItems} out of {totalNumItems}
+        You currently have {watchListNumItems} tasks on-hand
       </p>
     </header>
   );

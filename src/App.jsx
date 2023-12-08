@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -14,6 +14,19 @@ import {
   HiCog6Tooth,
 } from "react-icons/hi2";
 function App() {
+  const [currentPage, setCurrentPage] = useState();
+  const page = useEffect(
+    function () {
+      if (currentPage) {
+        const completedNumItems = todoList.reduce(
+          (acc, todo) => acc + (todo.status === "Completed" ? 1 : 0),
+          0
+        );
+      }
+    },
+    [currentPage]
+  );
+
   const todoList = useSelector((state) => state.todo);
   const completedNumItems = todoList.reduce(
     (acc, todo) => acc + (todo.status === "Completed" ? 1 : 0),
@@ -61,14 +74,25 @@ function Header({ totalNumItems, completedNumItems }) {
 function SideBar() {
   return (
     <aside className="row-start-1 row-span-4	bg-[#e7f5ff]  ">
-      {/* <HiDocumentCheck /> */}
-      <logo className="text-[10rem] mt-[2rem] mx-auto block">
-        {/* <HiClipboardDocumentCheck /> */}
-        <HiCog6Tooth />
-      </logo>
+      <div className="text-[10rem] mt-[2rem] mx-auto block ">
+        <span className="mx-auto block text-[#1864ab] flex justify-center items-end mt-[5rem] mb-[7rem] divide-y border-b pb-[2rem]">
+          {/* <HiClipboardDocumentCheck /> */}
+          <HiDocumentCheck />
+          {/* <HiCog6Tooth /> */}
+        </span>
+      </div>
+      <div className="divide-y-8 divide-gray-400"></div>
 
-      <HiArchiveBoxXMark />
-      <HiMiniQueueList />
+      <div className="flex flex-col text-[2rem] gap-[3rem] items-center  ">
+        <div className="">
+          <span className="flex gap-[1rem] cursor-pointer hover:bg-[#698DBE] p-[1rem] rounded-[3px] hover:text-[white]">
+            <HiMiniQueueList /> To-Do List
+          </span>
+        </div>
+        <div className="flex gap-[1rem] cursor-pointer hover:bg-[#698DBE] p-[1rem] rounded-[3px] hover:text-[white]">
+          <HiArchiveBoxXMark /> Completed
+        </div>
+      </div>
     </aside>
   );
 }
@@ -135,7 +159,7 @@ function Task({ todo }) {
       <button className=" h-6 w-6  bg-[#d0ebff] top-0 end-0 absolute hover:bg-red-400">
         <HiOutlineXMark />
       </button>
-      <div className="py-6 bg-[#e7f5ff] grid grid-cols-10 items-center justify-items-center px-5 gap-5 rounded-[5px] hover:bg-[#1864ab] hover:text-white">
+      <div className="py-6 bg-[#e7f5ff] grid grid-cols-10 items-center justify-items-center px-5 gap-5 rounded-[5px] hover:bg-[#698DBE] hover:text-white">
         <span
           value={todo.duedate}
           className="border-b border-[#f9f8ff] px-8 py-3 

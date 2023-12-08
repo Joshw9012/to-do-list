@@ -36,10 +36,13 @@ html {
 }
 body {
   font-family: "Rubik", sans-serif;
-  line-height: 1;
+
   font-weight: 400;
   color: #555;
-  border-bottom: 3px solid #e67e22;
+
+  max-width: 124rem;
+  height: 100dvh;
+  margin: auto;
 }
 
 @layer components {

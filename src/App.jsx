@@ -57,7 +57,7 @@ export default App;
 
 function AppLayout({ children }) {
   return (
-    <div className="bg-[#f9f8ff] max-w-[128rem]	mx-auto h-screen  grid-rows-[1fr_auto_7fr] grid grid-cols-[1fr_6fr] 100dvh gap-3 ">
+    <div className="bg-[#f9f8ff] max-w-[120rem]	mx-3 h-screen  grid-rows-[1fr_auto_7fr] grid grid-cols-[1fr_6fr] 100dvh gap-3 ">
       {children}
     </div>
   );
@@ -215,7 +215,7 @@ function Footer({}) {
         <div className="h-[12rem] text-white">
           <div className=" flex justify-center items-center ">
             <span
-              className="flex justify-center items-center hover:text-orange-400 cursor-pointer text-white block "
+              className="flex justify-center items-center hover:bg-[#698DBE] rounded-[3px] cursor-pointer text-white block px-4"
               onClick={handleAddToggle}
             >
               <HiXCircle />
@@ -247,14 +247,14 @@ function Footer({}) {
               <option value="" disabled selected>
                 Select...
               </option>
-              <option value="volvo">High</option>
-              <option value="saab">Medium</option>
-              <option value="mercedes">Low</option>
+              <option value="H">High</option>
+              <option value="M">Medium</option>
+              <option value="L">Low</option>
             </select>
 
             <button
               onClick={handleSubmit}
-              className="bg-orange-500 block text-white px-2 py-2 rounded-[3px] hover:bg-orange-400"
+              className="bg-orange-600 block text-white px-2 py-2 rounded-[3px] hover:bg-orange-500"
             >
               Submit
             </button>
@@ -262,8 +262,8 @@ function Footer({}) {
         </div>
       ) : (
         <div onClick={handleAddToggle}>
-          <div className="flex justify-center text-white ">
-            <span className="flex justify-center  block cursor-pointer hover:text-orange-400">
+          <div className="flex justify-center text-white  hover:bg-orange-600">
+            <span className="flex justify-center  block cursor-pointer  p-[1.5rem]">
               <HiMiniPlusCircle />
               Add New
             </span>

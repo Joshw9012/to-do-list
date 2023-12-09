@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  NavLink,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 
 import {
   HiMiniPlusCircle,
@@ -13,6 +20,33 @@ import {
   HiOutlineDocumentDuplicate,
 } from "react-icons/hi2";
 function App() {
+  const todoList = useSelector((state) => state.todo);
+  const todoWatchList = todoList.filter((todo) => todo.status === "Pending");
+  const completedList = todoList.filter((todo) => todo.status === "Completed");
+  // return <AppLayout></AppLayout>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<Navigate replace to="todolist" />} />
+          <Route
+            path="todolist"
+            element={<Main todos={todoWatchList}></Main>}
+          />
+          <Route
+            path="completed"
+            element={<Main todos={completedList}></Main>}
+          />
+        </Route>
+        {/* <Route path="/" element={<AppLayout />} /> */}
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+function AppLayout() {
   // const page = useEffect(
   //   function () {
   //     if (currentPage) {
@@ -27,39 +61,29 @@ function App() {
   const todoList = useSelector((state) => state.todo);
   const todoWatchList = todoList.filter((todo) => todo.status === "Pending");
   const completedList = todoList.filter((todo) => todo.status === "Completed");
-  //cl
-  console.log(todoList);
-  console.log(completedList);
-
+  const watchListNumItems = todoWatchList.length;
   const completedNumItems = todoList.reduce(
     (acc, todo) => acc + (todo.status === "Completed" ? 1 : 0),
     0
   );
 
-  const watchListNumItems = todoWatchList.length;
   console.log(todoList[0].status);
   console.log(completedNumItems);
   console.log(todoList.length);
+  //cl
+  console.log(todoList);
+  console.log(completedList);
 
   return (
-    <AppLayout>
+    <div className="bg-[#f9f8ff] max-w-[120rem]	mx-3 h-screen  grid-rows-[1fr_auto_7fr] grid grid-cols-[1fr_6fr] 100dvh gap-3 ">
       <Header
         watchListNumItems={watchListNumItems}
         completedNumItems={completedNumItems}
       ></Header>
       <SideBar></SideBar>
-      <Main todos={todoWatchList}></Main>
+      {/* <Main todos={todoWatchList}></Main> */}
+      <Outlet />
       <Footer></Footer>
-    </AppLayout>
-  );
-}
-
-export default App;
-
-function AppLayout({ children }) {
-  return (
-    <div className="bg-[#f9f8ff] max-w-[120rem]	mx-3 h-screen  grid-rows-[1fr_auto_7fr] grid grid-cols-[1fr_6fr] 100dvh gap-3 ">
-      {children}
     </div>
   );
 }
@@ -88,13 +112,17 @@ function SideBar() {
 
       <div className="flex flex-col text-[2rem] gap-[3rem] items-center  ">
         <div className="">
-          <span className="flex gap-[1rem] cursor-pointer hover:bg-[#698DBE] p-[1rem] rounded-[3px] hover:text-[white]">
-            <HiMiniQueueList /> To-Do List
+          <NavLink to="todolist">
+            <span className="flex gap-[1rem] cursor-pointer hover:bg-[#698DBE] p-[1rem] rounded-[3px] hover:text-[white] items-center">
+              <HiMiniQueueList /> To-Do List
+            </span>
+          </NavLink>
+        </div>
+        <NavLink to="completed">
+          <span className="flex gap-[1rem] cursor-pointer hover:bg-[#698DBE] p-[1rem] rounded-[3px] hover:text-[white] items-center">
+            <HiArchiveBoxXMark /> Completed
           </span>
-        </div>
-        <div className="flex gap-[1rem] cursor-pointer hover:bg-[#698DBE] p-[1rem] rounded-[3px] hover:text-[white]">
-          <HiArchiveBoxXMark /> Completed
-        </div>
+        </NavLink>
       </div>
     </aside>
   );

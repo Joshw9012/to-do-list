@@ -42,7 +42,7 @@ body {
 
   max-width: 124rem;
   height: 100dvh;
-  margin: auto;
+  margin: 0 auto;
 }
 
 @layer components {

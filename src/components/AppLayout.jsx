@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { Header } from "./Header";
-import { SideBar } from "./SideBar";
-import { Main } from "./Main.1";
-import { Footer } from "./Footer";
+import { Header } from "./header/Header";
+import { SideBar } from "./sidebar/SideBar";
+import { Main } from "./main/Main";
+import { Footer } from "./footer/Footer";
 
 export function AppLayout() {
   const taskList = useSelector((state) => state.todo);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { HiMiniPlusCircle, HiXCircle } from "react-icons/hi2";
-import { addNew } from "./components/todoSlice";
+import { addNew } from "../todoSlice";
 
 //================================================================
 

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { AppLayout } from "./AppLayout";
-import { TaskList } from "./TaskList";
+import { AppLayout } from "./components/AppLayout";
+import { TaskList } from "./components/task/TaskList";
 function App() {
   const taskList = useSelector((state) => state.todo);
   const todoWatchList = taskList.filter((task) => task.status === true);

@@ -5,7 +5,7 @@ import {
   HiOutlineCheckCircle,
   HiOutlinePencilSquare,
 } from "react-icons/hi2";
-import { completeTask, deleteTask, updateTask } from "./components/todoSlice";
+import { completeTask, deleteTask, updateTask } from "../todoSlice";
 
 export function Task({ task, className }) {
   const dispatch = useDispatch();
